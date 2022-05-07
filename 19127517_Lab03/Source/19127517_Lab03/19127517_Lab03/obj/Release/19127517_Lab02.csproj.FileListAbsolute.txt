@@ -1,0 +1,6 @@
+C:\Users\jason\Downloads\19127517_Lab02\Source\19127517_Lab02\19127517_Lab02\obj\Release\19127517_Lab02.csproj.AssemblyReference.cache
+C:\Users\jason\Downloads\19127517_Lab02\Source\19127517_Lab02\19127517_Lab02\obj\Release\_19127517_Lab02.Drawie.resources
+C:\Users\jason\Downloads\19127517_Lab02\Source\19127517_Lab02\19127517_Lab02\obj\Release\19127517_Lab02.csproj.GenerateResource.cache
+C:\Users\jason\Downloads\19127517_Lab02\19127517_Lab02\Source\19127517_Lab02\19127517_Lab02\obj\Release\19127517_Lab02.csproj.AssemblyReference.cache
+C:\Users\jason\Downloads\19127517_Lab02\19127517_Lab02\Source\19127517_Lab02\19127517_Lab02\obj\Release\_19127517_Lab02.Drawie.resources
+C:\Users\jason\Downloads\19127517_Lab02\19127517_Lab02\Source\19127517_Lab02\19127517_Lab02\obj\Release\19127517_Lab02.csproj.GenerateResource.cache
