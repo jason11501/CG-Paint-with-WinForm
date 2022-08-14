@@ -1,4 +1,4 @@
-# Computer graphic - Đồ họa máy tính
+# Computer graphic - Đồ họa máy tính - Lab 03
 # Paint với WinForm
 Gồm những tính năng (features): <br>
 
