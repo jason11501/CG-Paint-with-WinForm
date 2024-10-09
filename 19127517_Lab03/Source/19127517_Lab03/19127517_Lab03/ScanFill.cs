@@ -48,7 +48,7 @@ namespace _19127517_Lab03
             {
                 //Tìm point_ymin và point_ymax; Xây dựng list cạnh
                 for (int a = 1; a < polygon.Count(); a++)
-                {
+                {// Làm ngắn cạnh
                     if (polygon[a - 1].getY() < point_ymin)
                         point_ymin = polygon[a - 1].getY();
                     if (polygon[a - 1].getY() > point_ymax)
