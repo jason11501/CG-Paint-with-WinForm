@@ -12,8 +12,8 @@ namespace _19127517_Lab03
         private List<Point> ListOfIntersectPoints; //List giao điểm giữa đường quét và các cạnh
         private List<Line> ListOfEdges; //List các cạnh của đa giác
         private List<Point> polygon; //List các điểm của đa giác
-        private int point_ymin; //startPoint Scanline
-        private int point_ymax; //end point scaline
+        private int point_ymin; //startPoint Scanline. y thấp nhất của đa giác
+        private int point_ymax; //end point scaline. y cao nhất của đa giác
         public void setFill(List<Point> po)
         {
             this.polygon = po;
@@ -22,12 +22,12 @@ namespace _19127517_Lab03
             point_ymin = 2000;
             point_ymax = 0;
         }
-        //kiểm tra xem có giao điểm của dòng quét y và cạnh và trả ra giá trị giao điểm
+        //kiểm tra giao điểm dòng quét y vs cạnh, return giao điểm x_intersect nếu có
         public bool findIntersectGLPoint(int x1, int y1, int x2, int y2, int y, ref int x)
         {
             if (y2 == y1)
                 return false;
-            x = (x2 - x1) * (y - y1) / (y2 - y1) + x1;
+            x = (x2 - x1) * (y - y1) / (y2 - y1) + x1; // nghịch đảo độ dốc 1/m của cạnh đa giác
             bool isInsideEdgeX;
             bool isInsideEdgeY;
             if (x1 < x2)
@@ -48,7 +48,7 @@ namespace _19127517_Lab03
             {
                 //Tìm point_ymin và point_ymax; Xây dựng list cạnh
                 for (int a = 1; a < polygon.Count(); a++)
-                {// Làm ngắn cạnh
+                {
                     if (polygon[a - 1].getY() < point_ymin)
                         point_ymin = polygon[a - 1].getY();
                     if (polygon[a - 1].getY() > point_ymax)
@@ -70,10 +70,10 @@ namespace _19127517_Lab03
         public void scanlineFill(OpenGL gl)
         {
             int edgesSize = ListOfEdges.Count();
-            for (int i = point_ymin; i <= point_ymax; i++) //Duyệt từng dòng quét
+            for (int i = point_ymin; i <= point_ymax; i++) //Duyệt dòng quét i
             {
                 int intersectX = 0;
-                for (int j = 0; j < edgesSize; j++) //Xây dựng danh sách các giao điểm
+                for (int j = 0; j < edgesSize; j++) //Xây dựng danh sách các giao điểm (duyệt qua từng cạnh)
                 {
                     if (findIntersectGLPoint(ListOfEdges[j].getP1().getX(), ListOfEdges[j].getP1().getY(), ListOfEdges[j].getP2().getX(), ListOfEdges[j].getP2().getY(), i, ref intersectX))
                     {
@@ -81,7 +81,7 @@ namespace _19127517_Lab03
                         // đầu mút 1 có y> đầu mút 2
                         if (ListOfEdges[j].getP1().getY() > ListOfEdges[j].getP2().getY())
                         {
-                            if (p.getY() == ListOfEdges[j].getP1().getY())
+                            if (p.getY() == ListOfEdges[j].getP1().getY()) // bỏ qua trường họp hai đầu mút của 1 cạnh trên 1 dòng quét
                                 continue;
                         }
                         else
@@ -95,7 +95,7 @@ namespace _19127517_Lab03
                 }
                 int intersectSize = ListOfIntersectPoints.Count();
                 Point swap = new Point(0, 0);
-                //Sắp xếp các giao điểm lại theo tọa độ x
+                //Sort các giao điểm lại theo tọa độ x_intersect (tăng dần)
                 for (int a = 0; a < intersectSize - 1; a++)
                     for (int j = i + 1; j < intersectSize; j++)
                     {
@@ -108,12 +108,12 @@ namespace _19127517_Lab03
                     }
 
                 int intersectPointsSize = ListOfIntersectPoints.Count();
-                for (int j = 1; j < intersectPointsSize; j += 2) //Tô màu
+                for (int j = 1; j < intersectPointsSize; j += 2) //Tô màu edge lẻ edge chẵn (ko tô edge chẵn edge lẻ)
                 {
 
                     gl.Begin(OpenGL.GL_LINES);
                     gl.LineWidth(1);
-                    gl.Vertex2sv(new short[] { (short)(ListOfIntersectPoints[j - 1].getX()), (short)ListOfIntersectPoints[j - 1].getY() });
+                    gl.Vertex2sv(new short[] { (short)(ListOfIntersectPoints[j - 1].getX()), (short)ListOfIntersectPoints[j - 1].getY() }); //làm tròn x_intersect khi fill
                     gl.Vertex2sv(new short[] { (short)(ListOfIntersectPoints[j].getX()), (short)ListOfIntersectPoints[j].getY() });
                     gl.End();
 
