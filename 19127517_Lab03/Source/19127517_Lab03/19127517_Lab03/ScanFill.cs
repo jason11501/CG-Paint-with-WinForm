@@ -67,7 +67,7 @@ namespace _19127517_Lab03
             }
         }
 
-        public void scanlineFill(OpenGL gl)
+        public void scanlineFill(OpenGL gl) // tô từ trái qua phải. y = dòng quét i, x_intersect .tô theo cặp index lẻ chẵn
         {
             int edgesSize = ListOfEdges.Count();
             for (int i = point_ymin; i <= point_ymax; i++) //Duyệt dòng quét i
@@ -87,7 +87,7 @@ namespace _19127517_Lab03
                         else
                             if (ListOfEdges[j].getP1().getY() < ListOfEdges[j].getP2().getY())
                         {
-                            if (p.getY() == ListOfEdges[j].getP2().getY())
+                            if (p.getY() == ListOfEdges[j].getP2().getY()) // bỏ qua trường họp hai đầu mút của 1 cạnh trên 1 dòng quét
                                 continue;
                         }
                         ListOfIntersectPoints.Add(p);
@@ -108,7 +108,7 @@ namespace _19127517_Lab03
                     }
 
                 int intersectPointsSize = ListOfIntersectPoints.Count();
-                for (int j = 1; j < intersectPointsSize; j += 2) //Tô màu edge lẻ edge chẵn (ko tô edge chẵn edge lẻ)
+                for (int j = 1; j < intersectPointsSize; j += 2) //Tô màu index x_intersect lẻ chẵn (ko tô chẵn lẻ)
                 {
 
                     gl.Begin(OpenGL.GL_LINES);
