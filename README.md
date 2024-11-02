@@ -8,7 +8,9 @@ Gồm những tính năng (features): <br>
 
 ## Install environments
 **Công cụ (Tool):**<br>
-* Visual Studio
+* Visual Studio for Winndow only
 
 **Ngôn ngữ (Language):**<br>
 * C#
+ **Library**<br>
+* OpenGL
